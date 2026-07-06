@@ -28,8 +28,10 @@ agent/venv/
 agent/venv-windows/
 agent/__pycache__/
 agent/build/
-agent/dist_v2/
-agent/dist/
+# Windows sometimes holds a lock on the previous exe (antivirus scan, or the
+# PyInstaller-run process itself), so rebuilds occasionally go to dist2/,
+# dist3/, etc. rather than fighting the lock — all covered here.
+agent/dist*/
 agent/*.log
 # The built .exe is a large binary artifact — rebuild via PyInstaller
 # (see MomentumAgent.spec) rather than committing it, or attach it to a

@@ -1,9 +1,15 @@
 """System tray UI: a pystray icon + menu, with small tkinter dialogs for
 login, starting a session, and stopping one.
 
-pystray's icon.run() blocks and must own the main thread on macOS, so a
-background thread drives the tick loop (idle detection, sampling, flushing)
-while the tray icon owns this thread.
+Threading model: tkinter is not thread-safe and all widget/dialog calls must
+happen on whichever thread runs `root.mainloop()`. pystray's menu callbacks
+are not guaranteed to fire on that same thread, so every dialog call is
+marshaled onto the Tk thread via `root.after(...)` plus a synchronization
+event, rather than assuming it's already safe to call tkinter directly from
+a pystray callback. The Tk root is created once and reused for the whole
+app lifetime — recreating a fresh `tk.Tk()` per dialog (the previous design)
+is a known source of dialogs that render but silently stop responding to
+clicks on Windows.
 """
 import threading
 import tkinter as tk
@@ -36,6 +42,7 @@ class TrayApp:
         self.controller = SessionController(self.api, on_change=self._refresh)
         self.icon = pystray.Icon("momentum", _make_icon(COLOR_IDLE), "Momentum", self._build_menu())
         self._stop_event = threading.Event()
+        self._root: tk.Tk | None = None  # created once run() starts, on the Tk thread
 
     # ── Menu / icon state ────────────────────────────────────────────────────
 
@@ -78,19 +85,40 @@ class TrayApp:
         else:
             self.icon.icon = _make_icon(COLOR_ACTIVE)
 
-    # ── tkinter dialogs (hidden root created per-dialog) ─────────────────────
+    # ── Running tkinter code on the Tk thread from any thread ───────────────
 
-    def _with_hidden_root(self, fn):
-        root = tk.Tk()
-        root.withdraw()
+    def _on_tk_thread(self, fn):
+        """Runs fn(root) on the thread running root.mainloop() and blocks the
+        caller until it finishes, returning fn's result (or re-raising its
+        exception). pystray menu callbacks aren't guaranteed to already be on
+        that thread, so this is the only safe way to show a dialog from one."""
+        result: dict = {}
+        done = threading.Event()
+
+        def wrapper():
+            try:
+                result["value"] = fn(self._root)
+            except Exception as e:  # noqa: BLE001 — re-raised on the caller's thread below
+                result["error"] = e
+            finally:
+                done.set()
+
+        self._root.after(0, wrapper)
+        done.wait()
+        if "error" in result:
+            raise result["error"]
+        return result.get("value")
+
+    def _bring_to_front(self, root) -> None:
+        root.deiconify()
         root.attributes("-topmost", True)
-        try:
-            return fn(root)
-        finally:
-            root.destroy()
+        root.lift()
+        root.focus_force()
+        root.withdraw()  # the root itself stays invisible; only child dialogs show
 
     def _login_flow(self, _icon=None, _item=None) -> None:
         def run(root):
+            self._bring_to_front(root)
             use_code = messagebox.askyesno(
                 "Momentum",
                 "Log in with a pairing code from the web app?\n\n"
@@ -101,7 +129,7 @@ class TrayApp:
                 self._pairing_code_login(root)
             else:
                 self._password_login(root)
-        self._with_hidden_root(run)
+        self._on_tk_thread(run)
         self._refresh()
 
     def _pairing_code_login(self, root) -> None:
@@ -135,6 +163,7 @@ class TrayApp:
 
     def _start_flow(self, _icon=None, _item=None) -> None:
         def run(root):
+            self._bring_to_front(root)
             try:
                 projects = self.api.list_projects()
             except ApiError as e:
@@ -163,7 +192,7 @@ class TrayApp:
                 self.controller.start(title, project["id"])
             except ApiError as e:
                 messagebox.showerror("Momentum", str(e), parent=root)
-        self._with_hidden_root(run)
+        self._on_tk_thread(run)
 
     def _toggle_pause(self, _icon=None, _item=None) -> None:
         try:
@@ -176,19 +205,25 @@ class TrayApp:
 
     def _stop_flow(self, _icon=None, _item=None) -> None:
         def run(root):
+            self._bring_to_front(root)
             shipped = messagebox.askyesno("Momentum", "Ship something this session?", parent=root)
             try:
                 self.controller.stop(shipped=shipped)
             except ApiError as e:
                 messagebox.showerror("Momentum", str(e), parent=root)
-        self._with_hidden_root(run)
+        self._on_tk_thread(run)
 
     def _show_error(self, message: str) -> None:
-        self._with_hidden_root(lambda root: messagebox.showerror("Momentum", message, parent=root))
+        def run(root):
+            self._bring_to_front(root)
+            messagebox.showerror("Momentum", message, parent=root)
+        self._on_tk_thread(run)
 
     def _quit(self, _icon=None, _item=None) -> None:
         self._stop_event.set()
         self.icon.stop()
+        if self._root is not None:
+            self._root.after(0, self._root.quit)
 
     # ── Background loop ──────────────────────────────────────────────────────
 
@@ -201,7 +236,18 @@ class TrayApp:
             self._stop_event.wait(config.TICK_SECONDS)
 
     def run(self) -> None:
-        if not self.auth.is_authenticated:
-            self._login_flow()
-        threading.Thread(target=self._background_loop, daemon=True).start()
-        self.icon.run()
+        # The Tk root's mainloop owns this (the main) thread for the rest of
+        # the process's life; pystray's icon loop runs on its own thread
+        # instead (its Windows backend doesn't require the main thread the
+        # way Cocoa's does on macOS).
+        self._root = tk.Tk()
+        self._root.withdraw()
+
+        def start_background():
+            if not self.auth.is_authenticated:
+                self._login_flow()
+            threading.Thread(target=self._background_loop, daemon=True).start()
+            threading.Thread(target=self.icon.run, daemon=True).start()
+
+        self._root.after(100, start_background)
+        self._root.mainloop()
