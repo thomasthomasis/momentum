@@ -1,0 +1,42 @@
+name: Deploy Backend
+
+# Builds and pushes the backend image to ECR on every push to main that
+# touches backend/. App Runner has AutoDeploymentsEnabled=true, so it picks
+# up the new image and redeploys automatically — no explicit deploy step
+# needed here. Auth is via OIDC (no long-lived AWS keys stored as secrets).
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+      - '.github/workflows/deploy-backend.yml'
+  workflow_dispatch: {}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::850919910323:role/momentum-github-actions
+          aws-region: us-east-1
+
+      - name: Login to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push image
+        working-directory: backend
+        env:
+          ECR_REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+        run: |
+          docker build -t "$ECR_REGISTRY/momentum-backend:latest" .
+          docker push "$ECR_REGISTRY/momentum-backend:latest"
