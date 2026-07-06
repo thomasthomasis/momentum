@@ -27,6 +27,7 @@ agent/venv/
 agent/venv-windows/
 agent/__pycache__/
 agent/build/
+agent/dist_v2/
 agent/dist/
 agent/*.log
 # The built .exe is a large binary artifact — rebuild via PyInstaller

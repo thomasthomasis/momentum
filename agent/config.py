@@ -12,7 +12,12 @@ try:
 except ImportError:
     pass  # python-dotenv not installed yet — fall back to real env vars only
 
-API_BASE = os.environ.get("MOMENTUM_API_BASE", "http://localhost:5000/api/v1")
+# Defaults to the deployed production API — this is what ships in the
+# distributed .exe (PyInstaller's onefile extraction path means a real .env
+# next to the source doesn't travel with it, so the fallback here IS what
+# real downloaders get). Override locally via .env or the env var for
+# development against a local docker-compose backend instead.
+API_BASE = os.environ.get("MOMENTUM_API_BASE", "https://z3hgvijkqp.us-east-1.awsapprunner.com/api/v1")
 
 # How long the OS must report no keyboard/mouse input before we auto-pause.
 AUTO_PAUSE_IDLE_SECONDS = int(os.environ.get("MOMENTUM_AUTO_PAUSE_IDLE_SECONDS", "90"))
