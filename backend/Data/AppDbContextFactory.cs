@@ -13,8 +13,14 @@ public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
 {
     public AppDbContext CreateDbContext(string[] args)
     {
+        // Lets `dotnet ef` target a different database (e.g. a real RDS instance
+        // for an initial migration run) without editing this file each time:
+        //   MOMENTUM_MIGRATION_CONNECTION="Host=...;..." dotnet ef database update
+        var connectionString = Environment.GetEnvironmentVariable("MOMENTUM_MIGRATION_CONNECTION")
+            ?? "Host=localhost;Port=5433;Database=momentum;Username=postgres;Password=postgres";
+
         var options = new DbContextOptionsBuilder<AppDbContext>()
-            .UseNpgsql("Host=localhost;Port=5433;Database=momentum;Username=postgres;Password=postgres")
+            .UseNpgsql(connectionString)
             .UseSnakeCaseNamingConvention()
             .Options;
 
