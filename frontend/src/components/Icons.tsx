@@ -145,6 +145,14 @@ export function BrowserIcon({ size = 16, className = '' }: IconProps) {
   )
 }
 
+export function GitHubIcon({ size = 16, className = '' }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.79-.25.79-.55 0-.27-.01-1.16-.01-2.1-3.2.59-4.03-.78-4.29-1.49-.14-.36-.75-1.49-1.28-1.79-.44-.24-1.07-.82-.02-.84.99-.02 1.7.91 1.94 1.29 1.13 1.9 2.96 1.36 3.68 1.04.11-.82.44-1.36.8-1.67-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.48.11-3.08 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.6.24 2.79.12 3.08.74.8 1.19 1.82 1.19 3.09 0 4.43-2.69 5.41-5.25 5.7.42.36.79 1.07.79 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.21.66.8.55A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" />
+    </svg>
+  )
+}
+
 export function LogOutIcon({ size = 16, className = '' }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>

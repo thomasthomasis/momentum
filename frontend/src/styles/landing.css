@@ -112,13 +112,3 @@
   font-size: .92rem; color: var(--text-muted); line-height: 1.5;
 }
 .landing-steps li svg { color: var(--success); flex-shrink: 0; margin-top: 3px; }
-
-/* ── Footer ────────────────────────────────────────────────────────────── */
-.landing-footer {
-  margin-top: auto;
-  text-align: center;
-  padding: 24px;
-  font-size: .8rem;
-  color: var(--text-muted);
-  border-top: 1px solid var(--border);
-}

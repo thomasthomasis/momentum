@@ -1,0 +1,120 @@
+/* ── Site footer ───────────────────────────────────────────────────────── */
+.site-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding: 40px 24px 20px;
+}
+
+.site-footer-top {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 28px;
+}
+@media (max-width: 640px) {
+  .site-footer-top { grid-template-columns: 1fr; gap: 24px; }
+}
+
+.site-footer-brand p {
+  margin: 8px 0 0;
+  font-size: .85rem;
+  color: var(--text-muted);
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+.site-footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.site-footer-col h4 {
+  font-size: .78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+  margin: 0 0 2px;
+}
+.site-footer-col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: .88rem;
+  color: var(--text);
+  text-decoration: none;
+  width: fit-content;
+}
+.site-footer-col a:hover { color: var(--accent); }
+
+.site-footer-bottom {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: .8rem;
+  color: var(--text-muted);
+}
+
+/* ── Legal pages ───────────────────────────────────────────────────────── */
+.legal-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.legal-nav {
+  display: flex;
+  gap: 20px;
+}
+.legal-nav a {
+  font-size: .88rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+.legal-nav a:hover { color: var(--text); }
+
+.legal-content {
+  flex: 1;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+.legal-content h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  color: var(--text);
+  margin: 0 0 4px;
+}
+.legal-updated {
+  font-size: .82rem;
+  color: var(--text-muted);
+  margin: 0 0 32px;
+}
+.legal-content h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 32px 0 12px;
+}
+.legal-content h2:first-of-type { margin-top: 0; }
+.legal-content p,
+.legal-content li {
+  font-size: .92rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+.legal-content ul {
+  margin: 8px 0 16px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.legal-content strong { color: var(--text); }
+.legal-content a { color: var(--accent); }

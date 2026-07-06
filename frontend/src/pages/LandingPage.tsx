@@ -2,6 +2,7 @@ import {
   BoltIcon, BarChartIcon, BrowserIcon, MonitorIcon,
   DownloadIcon, ArrowRightIcon, CheckIcon,
 } from '../components/Icons'
+import { Footer } from '../components/Footer'
 
 interface Props {
   onGetStarted: () => void
@@ -70,9 +71,7 @@ export default function LandingPage({ onGetStarted, onSignIn }: Props) {
         </ul>
       </section>
 
-      <footer className="landing-footer">
-        Momentum — built for people who want to know where their time really goes.
-      </footer>
+      <Footer />
     </div>
   )
 }
