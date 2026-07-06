@@ -1,6 +1,7 @@
 'use strict';
 
-const WEBSITE_URL = 'http://localhost:5173';
+// Comes from config.js (loaded via a <script> tag in popup.html, before this file).
+const WEBSITE_URL = Config.WEBSITE_URL;
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let timerInterval = null;

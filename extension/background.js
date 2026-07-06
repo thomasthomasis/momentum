@@ -1,9 +1,12 @@
 'use strict';
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Configuration — update API_BASE to match your backend URL
+// Configuration — comes from config.js, regenerated per-environment by
+// build.js (see .env.development / .env.production). Service workers use
+// importScripts rather than <script> tags to pull in another file.
 // ─────────────────────────────────────────────────────────────────────────────
-const API_BASE = 'http://localhost:5000/api/v1';
+importScripts('config.js');
+const API_BASE = Config.API_BASE;
 
 // ── Storage helpers ───────────────────────────────────────────────────────────
 
