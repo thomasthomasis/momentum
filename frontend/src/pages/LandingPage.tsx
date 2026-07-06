@@ -51,7 +51,11 @@ export default function LandingPage({ onGetStarted, onSignIn }: Props) {
           <div className="landing-pillar-icon"><MonitorIcon size={22} /></div>
           <h3>Desktop Agent</h3>
           <p>Runs quietly in your system tray, tracking app usage and auto-pausing the moment you step away.</p>
-          <a className="btn btn-primary btn-sm" href="/downloads/MomentumAgent.exe" download>
+          <a
+            className="btn btn-primary btn-sm"
+            href="https://momentum-agent-downloads-850919910323.s3.amazonaws.com/downloads/MomentumAgent.exe"
+            download
+          >
             <DownloadIcon /> Download for Windows
           </a>
         </div>
