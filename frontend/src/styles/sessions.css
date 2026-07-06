@@ -1,0 +1,76 @@
+/* ── Stats bar ─────────────────────────────────────────────────────────── */
+.stats-bar { display: flex; gap: 12px; flex-wrap: wrap; }
+.stat {
+  flex: 1; min-width: 100px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 14px 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.stat-value { font-size: 1.5rem; font-weight: 700; }
+.stat-label { font-size: .75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .06em; }
+
+/* ── Filter bar ────────────────────────────────────────────────────────── */
+.filter-bar {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 10px 14px;
+}
+.filter-bar select,
+.filter-bar input[type="date"] {
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); padding: 5px 10px; border-radius: 6px; font-size: .85rem;
+}
+.filter-checkbox { display: flex; align-items: center; gap: 6px; font-size: .85rem; cursor: pointer; }
+.filter-bar span { color: var(--text-muted); }
+
+/* ── Sessions list header ──────────────────────────────────────────────── */
+.sessions-header { display: flex; align-items: center; gap: 10px; }
+.sessions-header h2 { font-size: 1rem; font-weight: 600; flex: 1; }
+.sessions-count { font-size: .8rem; color: var(--text-muted); font-weight: 400; }
+.sessions-header-actions { display: flex; gap: 8px; align-items: center; }
+
+/* ── Session cards ─────────────────────────────────────────────────────── */
+.sessions-list { display: flex; flex-direction: column; gap: 10px; }
+
+.session-card {
+  display: flex; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); overflow: hidden; position: relative;
+  transition: border-color .15s;
+}
+.session-card:hover { border-color: var(--accent); }
+
+.session-card-accent { width: 4px; flex-shrink: 0; }
+.session-card-body   { flex: 1; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; }
+
+.session-card-top { display: flex; align-items: center; gap: 10px; }
+.project-chip {
+  font-size: .72rem; padding: 2px 8px; border-radius: 99px;
+  border: 1px solid; color: var(--text-muted);
+}
+.session-date  { font-size: .78rem; color: var(--text-muted); margin-left: auto; }
+.session-title { font-size: .95rem; font-weight: 600; }
+.session-notes { font-size: .83rem; color: var(--text-muted); line-height: 1.4; }
+
+.session-meta  { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: .8rem; color: var(--text-muted); }
+.shipped-badge { color: var(--success); font-weight: 600; }
+.tag           { background: var(--surface2); border-radius: 99px; padding: 2px 8px; font-size: .75rem; }
+
+.session-actions {
+  position: absolute; top: 8px; right: 10px;
+  display: flex; gap: 4px; opacity: 0; transition: opacity .15s;
+}
+.session-card:hover .session-actions { opacity: 1; }
+.session-delete {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 1.2rem; cursor: pointer; line-height: 1;
+}
+.session-delete:hover { color: var(--danger); }
+
+/* ── Energy bars ───────────────────────────────────────────────────────── */
+.energy-bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 14px; }
+.energy-bar  { display: inline-block; width: 4px; background: #6366f1; border-radius: 1px; }
+.energy-bar:nth-child(1) { height: 4px;  }
+.energy-bar:nth-child(2) { height: 6px;  }
+.energy-bar:nth-child(3) { height: 8px;  }
+.energy-bar:nth-child(4) { height: 11px; }
+.energy-bar:nth-child(5) { height: 14px; }

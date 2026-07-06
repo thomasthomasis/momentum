@@ -1,0 +1,28 @@
+/* ── Light theme overrides ─────────────────────────────────────────────── */
+[data-theme="light"] {
+  --bg:           #f4f4f5;
+  --surface:      #ffffff;
+  --surface2:     #e4e4e7;
+  --border:       #d4d4d8;
+  --text:         #18181b;
+  --text-muted:   #71717a;
+  --accent:       #6366f1;
+  --accent-hover: #4f46e5;
+}
+
+[data-theme="light"] .app-header   { background: #ffffff; border-bottom-color: #e4e4e7; }
+[data-theme="light"] .session-card { box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea      { background: #ffffff; color: #18181b; border-color: #d4d4d8; }
+
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder { color: #a1a1aa; }
+
+[data-theme="light"] .nav-tab              { color: #52525b; }
+[data-theme="light"] .nav-tab:hover,
+[data-theme="light"] .nav-tab.active       { color: #6366f1; }
+[data-theme="light"] .auth-page            {
+  background-image: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,.07) 0%, transparent 70%);
+}

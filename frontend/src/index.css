@@ -1,0 +1,13 @@
+@import './styles/global.css';
+@import './styles/layout.css';
+@import './styles/buttons.css';
+@import './styles/forms.css';
+@import './styles/auth.css';
+@import './styles/landing.css';
+@import './styles/sidebar.css';
+@import './styles/sessions.css';
+@import './styles/dashboard.css';
+@import './styles/tags.css';
+@import './styles/theme.css';
+@import './styles/weekview.css';
+@import './styles/projects.css';

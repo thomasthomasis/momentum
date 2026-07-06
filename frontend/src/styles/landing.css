@@ -1,0 +1,124 @@
+/* ── Page shell ────────────────────────────────────────────────────────── */
+.landing-page {
+  min-height: 100vh;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,.12) 0%, transparent 70%);
+  display: flex;
+  flex-direction: column;
+}
+[data-theme="light"] .landing-page {
+  background-image: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(99,102,241,.07) 0%, transparent 70%);
+}
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.landing-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 32px;
+}
+.landing-header-actions { display: flex; align-items: center; gap: 8px; }
+
+/* ── Hero ──────────────────────────────────────────────────────────────── */
+.landing-hero {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px 48px;
+  text-align: center;
+  display: flex; flex-direction: column; align-items: center; gap: 20px;
+}
+.landing-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  color: var(--text);
+  margin: 0;
+}
+.landing-hero-sub {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  line-height: 1.6;
+  margin: 0;
+}
+.landing-hero-actions {
+  display: flex; gap: 12px; margin-top: 8px;
+}
+.landing-hero-actions .btn { padding: 10px 20px; font-size: .95rem; }
+
+/* ── Pillars ───────────────────────────────────────────────────────────── */
+.landing-pillars {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 24px 56px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+@media (max-width: 800px) {
+  .landing-pillars { grid-template-columns: 1fr; }
+}
+
+.landing-pillar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 10px;
+  text-align: left;
+}
+.landing-pillar-icon {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+.landing-pillar h3 { font-size: 1.05rem; font-weight: 600; color: var(--text); margin: 0; }
+.landing-pillar p  { font-size: .88rem; color: var(--text-muted); line-height: 1.55; margin: 0; flex: 1; }
+.landing-pillar .btn { align-self: flex-start; margin-top: 4px; }
+
+.landing-badge {
+  display: inline-block;
+  font-size: .75rem;
+  padding: 4px 10px;
+  border-radius: 99px;
+  align-self: flex-start;
+  margin-top: 4px;
+}
+.landing-badge-soon {
+  background: color-mix(in srgb, var(--text-muted) 16%, transparent);
+  color: var(--text-muted);
+}
+
+/* ── How it fits together ─────────────────────────────────────────────── */
+.landing-how {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px 72px;
+  text-align: center;
+}
+.landing-how h2 {
+  font-size: 1.3rem; font-weight: 600; color: var(--text);
+  margin: 0 0 20px;
+}
+.landing-steps {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 12px;
+  text-align: left;
+}
+.landing-steps li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: .92rem; color: var(--text-muted); line-height: 1.5;
+}
+.landing-steps li svg { color: var(--success); flex-shrink: 0; margin-top: 3px; }
+
+/* ── Footer ────────────────────────────────────────────────────────────── */
+.landing-footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 24px;
+  font-size: .8rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}

@@ -1,0 +1,36 @@
+.sidebar {
+  width: 250px; flex-shrink: 0;
+  background: var(--surface); border-right: 1px solid var(--border);
+  padding: 16px; display: flex; flex-direction: column; gap: 8px;
+  overflow-y: auto;
+}
+.sidebar h3 {
+  font-size: .75rem; text-transform: uppercase;
+  letter-spacing: .08em; color: var(--text-muted); margin-bottom: 4px;
+}
+
+.sidebar-item {
+  width: 100%; display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; border-radius: 8px; border: none;
+  background: transparent; color: var(--text); cursor: pointer;
+  text-align: left; font-size: .88rem; transition: background .15s;
+}
+.sidebar-item:hover  { background: var(--surface2); }
+.sidebar-item.active { background: var(--accent); color: #fff; }
+.sidebar-item .project-name {
+  flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.dot   { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.badge {
+  margin-left: auto; font-size: .75rem; color: var(--text-muted);
+  background: var(--surface2); padding: 1px 7px; border-radius: 99px;
+}
+.sidebar-item.active .badge { background: rgba(255,255,255,.2); color: #fff; }
+
+.new-project-form { display: flex; gap: 6px; margin-top: 8px; }
+.new-project-form input {
+  flex: 1; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 6px 10px; color: var(--text); font-size: .85rem;
+}
+.new-project-form input:focus { outline: none; border-color: var(--accent); }

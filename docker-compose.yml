@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: momentum
+    ports:
+      # Bound to localhost only — do not remove the "127.0.0.1:" prefix, or
+      # Postgres becomes reachable from the network on any host that runs this
+      # compose file with a public interface.
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      ConnectionStrings__DefaultConnection: "Host=db;Port=5432;Database=momentum;Username=postgres;Password=${POSTGRES_PASSWORD:-postgres}"
+      # Override these via a real .env / secret manager for anything beyond
+      # local dev — Program.cs refuses to start in Production with the
+      # placeholder Jwt__Secret below.
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Development}
+      Jwt__Secret: ${JWT_SECRET:-your-super-secret-key-minimum-32-characters-long}
+      Jwt__Issuer: "momentum-api"
+      Jwt__Audience: "momentum-app"
+
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  postgres_data:

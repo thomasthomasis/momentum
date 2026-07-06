@@ -1,0 +1,61 @@
+/* ── Form groups ───────────────────────────────────────────────────────── */
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-group label { font-size: .82rem; color: var(--text-muted); font-weight: 500; }
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 7px; padding: 8px 12px; color: var(--text); font-size: .9rem;
+  font-family: inherit; transition: border-color .15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus  { outline: none; border-color: var(--accent); }
+.form-group textarea        { resize: vertical; }
+
+.form-row      { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-checkbox { flex-direction: row; align-items: center; }
+.form-checkbox label {
+  display: flex; align-items: center; gap: 8px;
+  font-size: .88rem; cursor: pointer; color: var(--text);
+}
+
+input[type="range"] { accent-color: var(--accent); }
+.energy-labels { display: flex; justify-content: space-between; font-size: .75rem; color: var(--text-muted); }
+
+/* ── Modal ─────────────────────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100; padding: 20px;
+}
+.modal {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 14px; width: 100%; max-width: 520px;
+  max-height: 90vh; overflow-y: auto; padding: 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.modal-header { display: flex; align-items: center; justify-content: space-between; }
+.modal-header h2 { font-size: 1.1rem; }
+.modal-close {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 1.4rem; cursor: pointer; line-height: 1;
+}
+.modal-close:hover { color: var(--text); }
+.modal-actions { display: flex; gap: 10px; justify-content: flex-end; padding-top: 8px; }
+
+/* ── Pairing code modal ────────────────────────────────────────────────── */
+.pairing-modal { max-width: 420px; }
+.pairing-modal-body { display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; }
+.pairing-instructions { font-size: .85rem; color: var(--text-muted); line-height: 1.5; margin: 0; }
+.pairing-code-display { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.pairing-code {
+  font-family: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  font-size: 1.8rem; font-weight: 700; letter-spacing: .08em;
+  color: var(--accent); background: var(--surface2);
+  border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 20px;
+}
+.pairing-code-expired { color: var(--text-muted); text-decoration: line-through; }
+.pairing-code-timer { font-size: .8rem; color: var(--text-muted); }

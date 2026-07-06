@@ -1,0 +1,282 @@
+/* ── Reset & Variables ─────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #0f1117;
+  --surface:      #1a1d27;
+  --surface2:     #22263a;
+  --border:       #2e3248;
+  --text:         #e2e8f0;
+  --text-muted:   #8892a4;
+  --accent:       #6366f1;
+  --accent-hover: #4f52d9;
+  --danger:       #ef4444;
+  --radius:       10px;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  width: 340px;
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+.view { padding: 16px; }
+.hidden { display: none !important; }
+
+/* ── Brand ─────────────────────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px 0 12px;
+}
+.brand-icon  { width: 26px; height: 26px; }
+.brand-name  { font-size: 1.15rem; font-weight: 700; letter-spacing: -.02em; }
+
+/* ── Auth tabs ─────────────────────────────────────────────────────────── */
+.auth-tabs {
+  display: flex;
+  background: var(--surface);
+  border-radius: 9px;
+  padding: 3px;
+  margin-bottom: 14px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 6px 4px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  border-radius: 7px;
+  font-size: .84rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+  font-family: inherit;
+}
+.tab-btn.active  { background: var(--surface2); color: var(--text); }
+.tab-btn:hover:not(.active) { color: var(--text); }
+
+/* ── Forms ─────────────────────────────────────────────────────────────── */
+.auth-form   { display: flex; flex-direction: column; gap: 10px; }
+#form-session { display: flex; flex-direction: column; gap: 10px; }
+
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: .78rem; font-weight: 500; color: var(--text-muted); }
+
+.field input,
+.field select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  padding: 8px 10px;
+  font-size: .88rem;
+  outline: none;
+  transition: border-color .15s;
+  width: 100%;
+  font-family: inherit;
+}
+.field input::placeholder { color: var(--text-muted); opacity: .6; }
+.field input:focus,
+.field select:focus       { border-color: var(--accent); }
+.field select             { appearance: none; cursor: pointer; }
+
+.form-error { color: var(--danger); font-size: .78rem; min-height: 1em; }
+
+/* ── Open web link (auth view) ─────────────────────────────────────────── */
+.open-web-link {
+  display: block;
+  text-align: center;
+  margin-top: 14px;
+  color: var(--text-muted);
+  font-size: .78rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  font-family: inherit;
+  transition: color .15s;
+}
+.open-web-link:hover { color: var(--text); }
+
+/* ── Buttons ───────────────────────────────────────────────────────────── */
+.btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: .88rem;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: background .15s, opacity .15s;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.btn:disabled           { opacity: .5; cursor: not-allowed; }
+.btn-primary            { background: var(--accent); color: #fff; }
+.btn-primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn-ghost              { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+.btn-ghost:hover:not(:disabled)   { background: var(--border); }
+.btn-danger             { background: rgba(239,68,68,.12); color: var(--danger); border: 1px solid rgba(239,68,68,.25); }
+.btn-danger:hover:not(:disabled)  { background: rgba(239,68,68,.22); }
+.btn-full               { width: 100%; }
+.btn-half               { flex: 1; }
+
+/* ── Icon buttons ──────────────────────────────────────────────────────── */
+.icon-btn {
+  width: 30px; height: 30px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  flex-shrink: 0;
+}
+.icon-btn svg { width: 13px; height: 13px; }
+.icon-btn:hover { background: var(--surface); color: var(--text); }
+.icon-btn-danger:hover { color: var(--danger); border-color: rgba(239,68,68,.35); }
+
+/* ── Avatar ────────────────────────────────────────────────────────────── */
+.avatar {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: .02em;
+}
+
+/* ── View header ───────────────────────────────────────────────────────── */
+.view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.view-header-left    { display: flex; align-items: center; gap: 8px; }
+.view-header-actions { display: flex; gap: 6px; }
+.user-name           { font-weight: 600; font-size: .88rem; }
+
+/* ── Energy picker ─────────────────────────────────────────────────────── */
+.energy-picker { display: flex; gap: 5px; }
+.energy-btn {
+  flex: 1;
+  padding: 6px 2px;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: .95rem;
+  text-align: center;
+  transition: background .12s, border-color .12s;
+  line-height: 1;
+}
+.energy-btn:hover        { background: var(--surface2); }
+.energy-btn.active       { background: var(--surface2); border-color: var(--accent); }
+
+/* ── Session view ──────────────────────────────────────────────────────── */
+.session-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.session-title-display {
+  font-weight: 600;
+  font-size: .95rem;
+  line-height: 1.35;
+  word-break: break-word;
+}
+.session-project-display {
+  font-size: .76rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Timer ─────────────────────────────────────────────────────────────── */
+.timer-wrap {
+  text-align: center;
+  padding: 10px 0 6px;
+}
+.timer {
+  font-size: 2.9rem;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.timer-status {
+  margin-top: 5px;
+  font-size: .73rem;
+  color: var(--text-muted);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* ── Current site ──────────────────────────────────────────────────────── */
+.current-site-wrap {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 7px 10px;
+  margin: 10px 0 12px;
+}
+.site-icon   { width: 12px; height: 12px; color: var(--text-muted); flex-shrink: 0; }
+.site-domain {
+  font-size: .8rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Session controls ──────────────────────────────────────────────────── */
+.session-controls { display: flex; gap: 8px; }
+
+/* ── Stop panel ────────────────────────────────────────────────────────── */
+.stop-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.stop-panel-title {
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .85rem;
+  cursor: pointer;
+  user-select: none;
+}
+.checkbox-row input[type="checkbox"] {
+  accent-color: var(--accent);
+  width: 14px; height: 14px;
+  cursor: pointer;
+}
+.stop-actions         { display: flex; gap: 8px; }
+.stop-actions .btn    { flex: 1; font-size: .84rem; padding: 7px 10px; }
