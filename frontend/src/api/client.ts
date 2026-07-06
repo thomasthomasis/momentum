@@ -4,7 +4,12 @@ import type {
   SiteStat, AppStat, SessionStatus, Stats, StreakInfo,
 } from '../types'
 
-const BASE = '/api/v1'
+// VITE_API_URL is empty in dev (Vite's server.proxy in vite.config.ts forwards
+// /api to localhost:5000) and set to the real backend origin in production —
+// see .env.development / .env.production. Exported so AuthContext (which
+// makes its own fetch calls for login/register/refresh, outside the `api`
+// object below) uses the exact same base rather than a second hardcoded copy.
+export const BASE = `${import.meta.env.VITE_API_URL ?? ''}/api/v1`
 
 let _getAccessToken: (() => Promise<string | null>) | null = null
 

@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback, useRef } from 'react'
 import type { ReactNode } from 'react'
+import { BASE } from '../api/client'
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -87,7 +88,7 @@ interface ApiAuthResponse {
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
-const API = '/api/v1/auth'
+const API = `${BASE}/auth`
 const REFRESH_BUFFER_MS = 60_000 // refresh 60 s before expiry
 
 export function AuthProvider({ children }: { children: ReactNode }) {
