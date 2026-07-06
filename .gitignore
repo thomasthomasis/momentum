@@ -1,6 +1,7 @@
 # ── Secrets — never commit these ─────────────────────────────────────────────
 # .env.development CAN be committed (no real secrets, just localhost values)
 # .env.production must NOT be committed
+/.env.production
 backend/.env.production
 frontend/.env.production
 extension/.env.production
@@ -48,5 +49,3 @@ Thumbs.db
 *.user
 
 venv/
-
-.env.*
